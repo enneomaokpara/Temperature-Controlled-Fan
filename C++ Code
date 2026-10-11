@@ -1,0 +1,24 @@
+const int TEMP_PIN = A0;
+const int FAN_PIN = 3;
+const float THRESHOLD = 28.0; // fan kicks
+void setup () {
+pinMode (FAN_PIN, OUTPUT);
+Serial.begin(9600);
+｝
+float readTempC () {
+int raw = analogRead(TEMP_PIN);
+float voltage = raw * 5.0 / 1024.0;
+return (voltage - 0.5) * 100.0;
+｝
+void loop() {
+float t = readTempC();
+if (t > THRESHOLD) {
+digitalwrite(FAN_PIN, HIGH);
+} else {
+digitalwrite(FAN_PIN, LOW);
+}
+Serial.print ("Temp: ");
+Serial.print(t);
+Serial.orintIn(" C");
+delay (500);
+｝
